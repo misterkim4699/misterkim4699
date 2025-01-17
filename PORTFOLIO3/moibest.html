@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MON CIEL</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .scene {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: radial-gradient(circle, grey, black);
+        }
+
+        /* Planètes */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, blueviolet, greenyellow);
+            box-shadow: 0 0 30px 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .planet.planet1 {
+            width: 250px;
+            height: 200px;
+            top: 10%;
+            left: 15%;
+        }
+
+        .planet.planet2 {
+            width: 150px;
+            height: 150px;
+            top: 35%;
+            left: 70%;
+        }
+
+        .planet.planet3 {
+            width: 120px;
+            height: 100px;
+            bottom: 35%;
+            right: 50%;
+        }
+
+        .planet.planet4 {
+            width: 130px;
+            height: 100px;
+            bottom: 30%;
+            right: 90%;
+        }
+
+        .planet.planet5 {
+            width: 130px;
+            height: 100px;
+            bottom: 25%;
+            right: 60%;
+        }
+
+        .planet.planet6 {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            right: 75%;
+        }
+
+        /* Animation rebond du visage */
+        .bouncing-face {
+            position: absolute;
+            width: 190px;
+            height: 160px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            animation: bounce 5s infinite ease-in-out;
+        }
+
+        .bouncing-face img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes bounce {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(80vw, 10vh); }
+            50% { transform: translate(80vw, 60vh); }
+            75% { transform: translate(0, 60vh); }
+            100% { transform: translate(0, 0); }
+        }
+
+        /* Style des boutons */
+        .button-container {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        .button-container button {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Sections cachées */
+        .section {
+            display: none;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 900;
+        }
+
+        /* Affichage des sections */
+        .section.active {
+            display: block;
+        }
+
+        /* Style des images */
+        .photos {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .section.active .photos {
+            display: flex;
+        }
+
+        .photo-item {
+            text-align: center;
+        }
+        /* Étoiles et formes clignotantes */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            animation: twinkle 4s infinite alternate;
+        }
+
+        .star.square {
+            width: 15px;
+            height: 15px;
+            background: yellow;
+        }
+
+        .star.circle {
+            width: 20px;
+            height: 20px;
+            background: blue;
+            border-radius: 50%;
+        }
+
+        .star.triangle {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 20px solid red;
+        }
+
+        /* Nouvelles étoiles */
+        .fractal {
+            width: 30px;
+            height: 30px;
+            background-image: url('SLIDE/slide.302.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: twinkle 3s infinite alternate;
+        }
+        .fractal2 {
+            width: 30px;
+            height: 30px;
+            background-image: url('SLIDE/militaire.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: twinkle 4s infinite alternate;
+        }
+        .fractal3 {
+            width: 30px;
+            height: 30px;
+            background-image: url('SLIDE/slide.122.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: twinkle 3s infinite alternate;
+        }
+
+        .fractal4 {
+            width: 30px;
+            height: 30px;
+            background-image: url('SLIDE/slide345.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        .fractal5 {
+            width: 30px;
+            height: 30px;
+            background-image: url('SLIDE/moi ecf.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: twinkle 3s infinite alternate;
+        }
+
+        .pulsating {
+            width: 20px;
+            height: 20px;
+            background: yellow;
+            border-radius: 50%;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .nebula {
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, rgba(0,0,255,0.7), rgba(255,0,255,0.7));
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: twinkle 3s infinite alternate;
+        }
+
+        .double-spiral {
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #32CD32;
+            border-bottom: 15px solid transparent;
+            transform: rotate(45deg);
+            animation: twinkle 3s infinite alternate;
+        }
+
+        .cube {
+            width: 25px;
+            height: 25px;
+            background: greenyellow;
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        /* Animation des pulsations */
+        @keyframes pulse {
+            50% {
+                transform: scale(1);
+                opacity: 1.5;
+            }
+            60% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Animation pour clignoter */
+        @keyframes blink {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Animation des étoiles */
+        @keyframes twinkle {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+
+        /* Style pour le texte d'accueil */
+        .welcome-text {
+            position: absolute;
+            top: 85%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        /* Style pour le message clignotant */
+        .message2 {
+            position: absolute;
+            top: 70%;
+            left: 80%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: yellow;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            text-align: center;
+            opacity: 0;
+            animation: blink 3s infinite;
+            z-index: 600;
+        }
+
+        .photos {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+.photo-item {
+    text-align: center;
+}
+
+Conteneur de texte du footer */
+.footer-text {
+    background-color: green;  /* Ligne verte pour le texte */
+    padding: 30px;
+    font-size: 5em;  /* Agrandir le texte */
+    width: 100%;     /* S'étend sur toute la largeur de la page */
+    box-sizing: border-box;
+    margin-bottom: 10px;  /* Espacement entre le texte et les icônes */
+    text-align: center;
+}
+.footer-content {
+    margin: 0;
+    text-align: center;
+    font-size: 150%;
+    color: #fff;     /* Texte blanc */
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="scene">
+        <!-- Texte d'accueil -->
+        <div class="welcome-text">BIENVENUE DANS MON SITE MON AMI(E)</div>
+        
+        <!-- Message 2 -->
+        <div class="message2" id="message2">Welcome, je suis M. KIMOUCHE 🍈 Formateur transport, mentor et passionné d’intelligence artificielle </div>
+
+        <!-- Planètes -->
+        <div class="planet planet1"></div>
+        <div class="planet planet2"></div>
+        <div class="planet planet3"></div>
+        <div class="planet planet4"></div>
+        <div class="planet planet5"></div>
+        <div class="planet planet6"></div>
+
+        <!-- Animation avec visage -->
+        <div class="bouncing-face">
+            <img src="SLIDE/slide299.jpg" alt="Mon visage">
+        </div>
+
+        <!-- Étoiles, ronds, carrés, triangles, etc -->
+        <div class="stars">
+            <div class="star square" style="top: 10%; left: 20%;"></div>
+            <div class="star square" style="top: 30%; left: 50%;"></div>
+            <div class="star circle" style="top: 50%; left: 40%;"></div>
+            <div class="star circle" style="top: 70%; left: 30%;"></div>
+            <div class="star triangle" style="top: 80%; left: 60%;"></div>
+            <div class="star triangle" style="top: 40%; left: 80%;"></div>
+            <div class="star square" style="top: 20%; left: 70%;"></div>
+            <div class="star circle" style="top: 15%; left: 60%;"></div>
+            <div class="star triangle" style="top: 90%; left: 10%;"></div>
+            <div class="star fractal" style="top: 90%; left: 30%;"></div>
+            <div class="star pulsating" style="top: 80%; left: 70%;"></div>
+            <div class="star nebula" style="top: 20%; left: 80%;"></div>
+            <div class="star double-spiral" style="top: 40%; left: 10%;"></div>
+            <div class="star cube" style="top: 60%; left: 50%;"></div>
+            <div class="star fractal2" style="top: 90%; left: 90%;"></div>
+            <div class="star fractal3" style="top: 20%; left: 40%;"></div>
+            <div class="star fractal4" style="top: 20%; left: 20%;"></div>
+            <div class="star fractal5" style="top: 30%; left: 90%;"></div>
+            <div class="star nebula" style="top: 50%; left: 10%;"></div>
+            <div class="star nebula" style="top: 30%; left: 30%;"></div>
+        </div>
+  
+
+        <!-- Conteneur de boutons -->
+        <div class="button-container">
+            <button onclick="toggleSection('passion')">Découvrir ma passion</button>
+            <button onclick="toggleSection('boulot')">Mon Boulot</button>
+            <button onclick="toggleSection('amities')">Mes Amitiés</button>
+            <button onclick="toggleSection('amours')">Mes Amours</button>
+            <button onclick="toggleSection('loisirs')">Mes Loisirs</button>
+            <button onclick="toggleSection('projets')">Mes Projets</button>
+        </div>
+
+        <!-- Sections de contenu -->
+        <div class="section" id="passion">
+            <h2>Ma Passion</h2>
+            <p>Je suis passionné par l'intelligence artificielle, l'échec, et la cuisine. J'adore découvrir et apprendre de nouvelles choses chaque jour.</p>
+            <div class="photos">
+                <div class="photo-item">
+                    <img src="SLIDE/slide167.jpeg" alt="Image représentant l'intelligence artificielle" style="width:300px; height:auto;">
+                    <p>Intelligence artificielle</p>
+                </div>
+                <div class="photo-item">
+                    <img src="SLIDE/slide92.jpeg" alt="Image représentant un jeu d'échecs" style="width:300px; height:auto;">
+                    <p>Les échecs</p>
+                </div>
+                <div class="photo-item">
+                    <img src="SLIDE/slide213.jpeg" alt="Image représentant un plat cuisiné" style="width:300px; height:auto;">
+                    <p>La cuisine</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="boulot">
+            <h2>Mon Boulot</h2>
+            <p>Je suis conducteur de bus et formateur diplômé d'État. Mon rôle est de former et de guider les conducteurs dans leur carrière.</p>
+            <div class="photos">
+                <div class="photo-item">
+                    <img src="SLIDE/229.jpg" alt="Image représentant un bus" style="width:300px; height:auto;">
+                    <p>Mon travail de conducteur de bus</p>
+                </div>
+                <div class="photo-item">
+                    <img src="SLIDE/230.jpg" alt="Image représentant une formation de conducteurs" style="width:300px; height:auto;">
+                    <p>Formation de conducteurs</p>
+                </div>
+                <div class="photo-item">
+                    <img src="SLIDE/moi salle.jpg" alt="Image représentant une formation de conducteurs" style="width:300px; height:auto;">
+                    <p>Formation de conducteurs</p>
+            </div>
+        </div>
+    </div>
+
+        <div class="section" id="amities">
+            <h2>Mes Amitiés</h2>
+            <p>J'accorde beaucoup d'importance à mes relations sociales. Mes amis sont mon soutien et ma source de joie.</p>
+            <div class="photos">
+                <div class="photo-item">
+                    <img src="SLIDE/slidearbitre.jpg" alt="Image représentant des amis" style="width:300px; height:auto;">
+                    <p>Mes amis</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="amours">
+            <h2>Mes Amours</h2>
+            <p>L'amour est une partie précieuse de ma vie, une source de bonheur et d'inspiration.</p>
+            <div class="photos">
+                <div class="photo-item">
+                    <img src="SLIDE/slidelatino2.jpeg" alt="Image représentant l'amour" style="width:300px; height:auto;">
+                    <img src="SLIDE/slidelatino.jpeg" alt="Image représentant l'amour" style="width:300px; height:auto;">
+                    <p>Mon amour</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="loisirs">
+            <h2>Mes Loisirs</h2>
+            <p>J'aime cuisiner, jouer aux échecs, et explorer l'univers fascinant de l'intelligence artificielle.</p>
+            <div class="photos">
+                <div class="photo-item">
+                    <img src="SLIDE/slide417.jpg" alt="Image Relax" style="width:300px; height:auto;">
+                    <img src="SLIDE/slide63.jpeg" alt="Image Relax" style="width:300px; height:auto;">
+                    <img src="SLIDE/slide208.jpeg" alt="Image Relax" style="width:300px; height:auto;">
+                    <p> Relax Max </p>     
+            </div>
+        </div>
+    </div>
+
+        <div class="section" id="projets">
+            <h2>Mes Projets</h2>
+            <p>Mes projets futurs incluent le développement de compétences en IA et l'expansion de ma carrière dans la formation.</p>
+            <div class="photos">
+                <div class="photo-item">
+                    <img src="SLIDE/slide.0214.jpeg" alt="Image spiderman vs raptor" style="width:300px; height:auto;">
+                    <img src="SLIDE/slide0.14.jpeg" alt="Image urban wakonda" style="width:300px; height:auto;">
+                    <img src="SLIDE/slide0.218.jpeg" alt="Image verseau ascendant cancer" style="width:300px; height:auto;">
+                    <img src="SLIDE/slide1.025.jpeg" alt="Image sciense" style="width:300px; height:auto;">
+                    <p> Entre dans mon imaginaire </p>                
+            </div>
+        </div>
+    </div>
+
+    footer>
+    <div class="footer-content">
+        <div class="footer-text">
+            <p>© 2025 Mohamed Kimouche 🍈 - Tous droits réservés</p>
+        </div>
+
+    <script>
+        function toggleSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.toggle('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+        }
+    </script>
+
+
+
+</body>
+</html>
